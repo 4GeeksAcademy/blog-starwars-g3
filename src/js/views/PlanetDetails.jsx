@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import defaultImage from '../../img/star-wars-logo.png'
 import { useParams } from 'react-router'
 import { Context } from '../store/appContext';
 
@@ -25,18 +26,18 @@ export const PlanetDetails = () => {
       setPlanet(await actions.getPlanetById(id))
     }
     fetchData()
-  }, [])
+  }, [planet])
 
 
   return (
-    <div>
-      <h1>Planet: {planet?.result.properties.name}</h1>
+    <div className='container'>
+      <h1 className='text-light'>Planet: {planet?.result.properties.name}</h1>
       <div className='row'>
         <div className='col'>
-          <div className="card mb-3">
+          <div className="card mb-3 bg-secondary">
             <div className="row g-0">
               <div className="col-md-4">
-                <img src={planetImages[id]} className="img-fluid rounded-start" alt="Planet image" />
+                <img onError={(e) => e.target.src = defaultImage} src={planetImages[id]} className="img-fluid rounded-start" alt="Planet image" />
               </div>
               <div className="col-md-8">
                 <div className="card-body">
@@ -47,15 +48,15 @@ export const PlanetDetails = () => {
             </div>
           </div>
           <ul className='list-group list-group-horizontal w-100'>
-            <li className='col list-group-item text-center'>
+            <li className='col list-group-item list-group-item-secondary text-center'>
               <h2>Climate</h2>
               <p className='fs-4'>{planet?.result.properties.climate}</p>
             </li>
-            <li className='col list-group-item text-center'>
+            <li className='col list-group-item list-group-item-secondary text-center'>
               <h2>Population</h2>
               <p className='fs-4'>{planet?.result.properties.population} habitants</p>
             </li>
-            <li className='col list-group-item text-center'>
+            <li className='col list-group-item list-group-item-secondary text-center'>
               <h2>Terrain</h2>
               <p className='fs-4'>{planet?.result.properties.terrain}</p>
             </li>

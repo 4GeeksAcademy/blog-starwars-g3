@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import defaultImage from '../../img/star-wars-logo.png'
 import { useParams } from 'react-router'
 import { Context } from '../store/appContext';
 
@@ -26,17 +27,17 @@ export const PeopleDetails = () => {
       setPeople(await actions.getPeopleById(id))
     }
     fetchData()
-  }, [])
+  }, [people])
 
   return (
-    <div>
-      <h1>Character: {people?.result.properties.name}</h1>
+    <div className='container'>
+      <h1 className='text-light'>Character: {people?.result.properties.name}</h1>
       <div className='row'>
         <div className='col'>
-          <div className="card mb-3">
+          <div className="card mb-3 bg-secondary">
             <div className="row g-0">
               <div className="col-md-4">
-                <img src={peopleImages[id]} className="img-fluid rounded-start" alt="Planet image" />
+                <img onError={(e) => e.target.src = defaultImage} src={peopleImages[id]} className="img-fluid rounded-start" alt="Planet image" />
               </div>
               <div className="col-md-8">
                 <div className="card-body">
@@ -47,15 +48,15 @@ export const PeopleDetails = () => {
             </div>
           </div>
           <ul className='list-group list-group-horizontal w-100'>
-            <li className='col list-group-item text-center'>
+            <li className='col list-group-item list-group-item-secondary text-center'>
               <h2>Gender</h2>
               <p className='fs-4'>{people?.result.properties.gender}</p>
             </li>
-            <li className='col list-group-item text-center'>
+            <li className='col list-group-item list-group-item-secondary text-center'>
               <h2>Height</h2>
               <p className='fs-4'>{people?.result.properties.height} cm</p>
             </li>
-            <li className='col list-group-item text-center'>
+            <li className='col list-group-item list-group-item-secondary text-center'>
               <h2>Skin Color</h2>
               <p className='fs-4'>{people?.result.properties.skin_color}</p>
             </li>

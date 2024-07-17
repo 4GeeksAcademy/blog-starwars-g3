@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import cardImage from "../../img/star-wars-logo.png"
+import defaultImage from "../../img/star-wars-logo.png"
 import { Context } from '../store/appContext.js';
 import { Link } from 'react-router-dom';
 
@@ -59,15 +59,11 @@ export const Card = ({ id, type }) => {
     fetchData();
   }, [])
 
-  const handleAddFavorite = () => {
-    actions.addFavorite(data)
-  }
-
   return (
     <div className="col">
-      <div className="card" style={{ width: "18rem" }}>
-        <img src={type === "people" ? peopleImages[id] : type === "planets" ? planetImages[id] : vehicleImages[id]} className="card-img-top" alt="image" />
-        <div className="card-body">
+      <div className="card" style={{ width: "18rem" }} data-bs-theme="dark">
+        <img onError={(e) => e.target.src = defaultImage} src={type === "people" ? peopleImages[id] : type === "planets" ? planetImages[id] : vehicleImages[id]} className="card-img-top" alt="image" />
+        <div className="card-body d-flex flex-column justify-content-between" style={{ height: "100%", minHeight: "250px" }}>
           <h5 className="card-title">{data?.result.properties.name}</h5>
           {
             type === "people" && (
@@ -77,9 +73,9 @@ export const Card = ({ id, type }) => {
                 <p className="card-text">Eye Color: {data?.result.properties.eye_color}</p>
                 <div className='d-flex justify-content-between'>
                   <Link to={`people-details/${id}`} className="btn btn-primary">Learn more!</Link>
-                  <button className='btn btn-primary' onClick={handleAddFavorite}>
+                  <button className='btn btn-primary' onClick={() => actions.toggleFavorite(data, "people")}>
                     {
-                      store.favorites.find(favorite => favorite.result.properties.name === data?.result.properties.name) ? <i className="fas fa-heart"></i> : <i className="far fa-heart"></i>
+                      store.favorites.people.find(favorite => favorite.result.properties.name === data?.result.properties.name) ? <i className="fas fa-heart"></i> : <i className="far fa-heart"></i>
                     }
                   </button>
                 </div>
@@ -93,9 +89,9 @@ export const Card = ({ id, type }) => {
                 <p className="card-text">Terrain: {data?.result.properties.terrain}</p>
                 <div className='d-flex justify-content-between'>
                   <Link to={`planet-details/${id}`} className="btn btn-primary">Learn more!</Link>
-                  <button className='btn btn-primary' onClick={handleAddFavorite}>
+                  <button className='btn btn-primary' onClick={() => actions.toggleFavorite(data, "planets")}>
                     {
-                      store.favorites.find(favorite => favorite.result.uid === data?.result.uid) ? <i className="fas fa-heart"></i> : <i className="far fa-heart"></i>
+                      store.favorites.planets.find(favorite => favorite.result.uid === data?.result.uid) ? <i className="fas fa-heart"></i> : <i className="far fa-heart"></i>
                     }
                   </button>
                 </div>
@@ -109,9 +105,9 @@ export const Card = ({ id, type }) => {
                 <p className="card-text">Manufacturer: {data?.result.properties.manufacturer}</p>
                 <div className='d-flex justify-content-between'>
                   <Link to={`vehicle-details/${id}`} className="btn btn-primary">Learn more!</Link>
-                  <button className='btn btn-primary' onClick={handleAddFavorite}>
+                  <button className='btn btn-primary' onClick={() => actions.toggleFavorite(data, "vehicles")}>
                     {
-                      store.favorites.find(favorite => favorite.result.properties.name === data?.result.properties.name) ? <i className="fas fa-heart"></i> : <i className="far fa-heart"></i>
+                      store.favorites.vehicles.find(favorite => favorite.result.properties.name === data?.result.properties.name) ? <i className="fas fa-heart"></i> : <i className="far fa-heart"></i>
                     }
                   </button>
                 </div>

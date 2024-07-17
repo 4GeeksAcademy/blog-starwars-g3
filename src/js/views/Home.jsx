@@ -7,10 +7,10 @@ export const Home = () => {
 
 	return (
 		<main className="text-center mt-5 container">
-			<section>
+			<section className="mb-5">
 				<div className="row">
 					<div className="col">
-						<h1>Characters</h1>
+						<h1 className="text-light">Characters</h1>
 					</div>
 				</div>
 				<div className="row row-cols-12 flex-nowrap overflow-auto">
@@ -20,16 +20,16 @@ export const Home = () => {
 								<Card key={character.uid} id={character.uid} type="people" />
 							)
 							) : (
-								<h1>No hay personajes para mostrar</h1>
+								<h1 className="text-light">No hay personajes para mostrar</h1>
 							)
 					}
 				</div>
 			</section>
 
-			<section>
+			<section className="mb-5">
 				<div className="row">
 					<div className="col">
-						<h1>Planets</h1>
+						<h1 className="text-light">Planets</h1>
 					</div>
 				</div>
 				<div className="row row-cols-12 flex-nowrap overflow-auto">
@@ -39,7 +39,7 @@ export const Home = () => {
 								<Card key={planet.uid} id={planet.uid} type="planets" />
 							)
 							) : (
-								<h1>No hay planetas para mostrar</h1>
+								<h1 className="text-light">No hay planetas para mostrar</h1>
 							)
 					}
 				</div>
@@ -48,7 +48,7 @@ export const Home = () => {
 			<section>
 				<div className="row">
 					<div className="col">
-						<h1>Vehicles</h1>
+						<h1 className="text-light">Vehicles</h1>
 					</div>
 				</div>
 				<div className="row row-cols-12 flex-nowrap overflow-auto">
@@ -58,7 +58,7 @@ export const Home = () => {
 								<Card key={vehicle.uid} id={vehicle.uid} type="vehicles" />
 							)
 							) : (
-								<h1>No hay vehículos para mostrar</h1>
+								<h1 className="text-light">No hay vehículos para mostrar</h1>
 							)
 					}
 				</div>

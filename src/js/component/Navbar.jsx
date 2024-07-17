@@ -7,34 +7,59 @@ export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<nav className="navbar navbar-light bg-light mb-3">
+		<nav className="navbar navbar-secondary bg-secondary mb-3">
 			<div className="container">
 				<Link to="/">
 					<img src={logo} height={64} />
 				</Link>
 				<div className="ml-auto">
 					<div className="dropdown">
-						<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<button className="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 							Favorites
 							<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-								{store.favorites.length}
+								{(store.favorites.people.length + store.favorites.vehicles.length + store.favorites.planets.length) || 0}
 								<span className="visually-hidden">unread messages</span>
 							</span>
 						</button>
-						<ul className="dropdown-menu dropdown-menu-end">
+						<ul className="dropdown-menu dropdown-menu-end text-center">
+							<li><h6 className="dropdown-header text-danger">People</h6></li>
 							{
-								store.favorites && store.favorites.length > 0 ?
-									store.favorites.map((item, index) => (
-										<li key={index} className="dropdown-item">
-											<Link to={`/people-details/${item?.result.uid}`}>
-												{item?.result.properties.name}
-											</Link>
-											<button className="btn-close" onClick={() => actions.removeFavorite(item?.result.uid)}></button>
+								store.favorites.people && store.favorites.people.length > 0 ? (
+									store.favorites.people.map((item) => (
+										<li className="dropdown-item" key={item.result.uid}>
+											<Link to={`/people-details/${item.result.uid}`}>{item.result.properties.name}</Link>
+											<button className="btn-close" onClick={() => actions.toggleFavorite(item, "people")}></button>
 										</li>
-									)) : (
-										<li className="dropdown-item">No favorites yet</li>
-
-									)
+									))
+								) : (
+									<li className="dropdown-item">No people favorites yet</li>
+								)
+							}
+							<li><h6 className="dropdown-header text-danger">Planets</h6></li>
+							{
+								store.favorites.planets && store.favorites.planets.length > 0 ? (
+									store.favorites.planets.map((item) => (
+										<li className="dropdown-item" key={item.result.uid}>
+											<Link to={`/planet-details/${item.result.uid}`}>{item.result.properties.name}</Link>
+											<button className="btn-close" onClick={() => actions.toggleFavorite(item, "planets")}></button>
+										</li>
+									))
+								) : (
+									<li className="dropdown-item">No planets favorites yet</li>
+								)
+							}
+							<li><h6 className="dropdown-header text-danger">Vehicles</h6></li>
+							{
+								store.favorites.vehicles && store.favorites.vehicles.length > 0 ? (
+									store.favorites.vehicles.map((item) => (
+										<li className="dropdown-item" key={item.result.uid}>
+											<Link to={`/vehicle-details/${item.result.uid}`}>{item.result.properties.name}</Link>
+											<button className="btn-close" onClick={() => actions.toggleFavorite(item, "vehicles")}></button>
+										</li>
+									))
+								) : (
+									<li className="dropdown-item">No vehicles favorites yet</li>
+								)
 							}
 						</ul>
 					</div>
